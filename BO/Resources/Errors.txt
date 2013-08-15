@@ -1,0 +1,3 @@
+Unknown Function - function is not yet defined or is misspelled.
+Unexpected end of File - either too many "}" NUL byte has been removed from bottom of file.
+Syntax Error - Default error

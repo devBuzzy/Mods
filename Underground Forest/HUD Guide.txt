@@ -1,0 +1,61 @@
+HUD (Heads Up Display) elements can be tricky to deal with in the Infinity Ward engine. This guide will help you be more efficient and effective with these in order to enhance your patches.
+
+[center][b][size="4"]Introduction[/size][/b][/center]
+[b]What is an HUD Element?[/b]
+An HUD element is any 2D picture or text that appears on your screen in an orthogonal projection (flat with your screen). This includes text elements, progress bars, even built in text pop-ups.
+
+
+[b]HUD Element Limit[/b]
+There is a limit to how many HUD elements you can have on the screen at one time and still have all display what they are suppose to be displaying. This limit is around 25-30 and varies based on other factors. Once you go over this limit, the last elements to be initialized will just not draw on the screen. This does not mean there is an error with your code, you have just reached the limit.
+
+
+
+[center][b][size="4"]Text Elements[/size][/b][/center]
+[b]Creating Text Elements[/b]
+In order to create a new text element use the following code:
+[code]
+textElem = self createFontString(<font>,<size>);
+textElem setPoint(<screenAlign>,<textAlign>,<x>,<y>);
+textElem setText(<text>);
+[/code]
+<font> the font used in the text (e.g. "default")
+<size> font size of the text
+<screenAlign> alignment of the coordinate system relative to the screen
+<textAlign> alignment of the text relative to the coordinates
+<x>,<y> (x,y) position of the text (Up: -y,Down: +y) (Left: -x,Right: +x)
+<text> the string that you want the text element to display
+
+When aligning the text and coordinate system you can use "CENTER" or any mixture of "TOP" or "BOTTOM"
+and "LEFT" or "RIGHT".
+
+
+[b]Changing Text[/b]
+The setText() function is riddled with problems. once you use it to set a text element to have certain text, never use it again on that element. If you use it more than once on an element in order to simply change the text, Eventually the game will crash with the notorious G_... error. Luckily there is a way around this. You can delete elements once you create them. by using this code:
+[code]textElem destroy();
+textElem = undefined;[/code]
+Now once this is done you are free to reinitialize it and set it to a different text. Doing this will greatly increase the amount of time you can get out of your patch before it crashes, possibly even make it completely stable.
+
+
+
+
+[center][b][size="4"]Progress Bars[/size][/b][/center]
+You can create and use a progress bar with the following code:
+[code]
+//initiate
+useBar = createPrimaryProgressBar(<yOffset>);
+useBarText = createPrimaryProgressBarText(<yOffset>);
+useBarText setText(<text>);
+
+//update
+useBar updateBar(<percentage>);
+[/code]
+<yOffset> y shift on the screen of the text or bar
+<text> text above the progress bar
+<percentage> the percentage the the progress bar shows
+
+
+
+
+[center][b][size="4"]Efficiency[/size][/b][/center]
+[b]Using Less HUD Elements[/b]
+There are a few tricks to using less HUD elements. The easiest and most obvious is to lay off on the rainbow pony effects. These look cool when you first start modding, but they are unprofessional and just clog up resources. Another method is to use "\n" in your text in order to enter or linebreak the text. If you have multiple rows of texts, you don't need an element for each line you can simply use "\n" to add a new line in the text.

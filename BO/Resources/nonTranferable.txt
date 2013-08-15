@@ -1,0 +1,7 @@
+<< SYNTAX >>
+foreach
+
+<< FUNCTIONS >>
+notifyOnPlayerCommand()
+stat functions
+challenge functions

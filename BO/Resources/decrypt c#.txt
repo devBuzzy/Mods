@@ -1,0 +1,48 @@
+byte[] Key = { 0x1a, 0xc1, 0xd1, 0x2d, 0x52, 0x7c, 0x59, 0xb4, 0x0e, 0xca, 0x61, 0x91, 0x20, 0xff, 0x82, 0x17, 0xcc, 0xff, 0x09, 0xcd, 0x16, 0x89, 0x6f, 0x81, 0xb8, 0x29, 0xc7, 0xf5, 0x27, 0x93, 0x40, 0x5d };
+ WHAT I NEEEDDDD TO DOOOOO is????? what ar eyou doing
+// Iv table
+        private static byte[] Table;
+ 
+        // Lookup values
+        private static int[] BlockNums;
+ 
+public static void BuildTable(byte[] Feed)
+        {
+            // Init tables
+            Table = new byte[4000];
+            BlockNums = new int[] { 1, 1, 1, 1 };
+ 
+            // Build table
+            int ptr = 0;
+            for (int i = 0; i < 200; i++)
+            {
+                for (int x = 0; x < 5; x++)
+                {
+                    // Check next byte
+                    if (Feed[ptr] == 0x00)
+                        ptr = 0;
+ 
+                    // Copy 4 times
+                    Table[(i * 20) + (x * 4)] = Feed[ptr];
+                    Table[(i * 20) + (x * 4) + 1] = Feed[ptr];
+                    Table[(i * 20) + (x * 4) + 2] = Feed[ptr];
+                    Table[(i * 20) + (x * 4) + 3] = Feed[ptr];
+                    ptr++;
+                }
+            }
+        }
+		where is that made? it literly injects it into each fast file u still here? ye this does not make any sense to me right now lol where is feed[ptr] being set?
+		and where is ptr being set tbh i made this with a friend he did that part while i did the creating the table part dont you need both both what? his part and this
+		ok if iloaded the entire file into memory
+		how do you decrypt it
+		like iwhats the process
+		it basically injects the tables into the fast file along with the iv.... ur good friends with v2 right? yes i bet he will explain a bit more if ya ask him hes not gonna tell me
+		how do i "inject" and do the iv shit
+		how do i do it with this crap? ok so what do you know
+		tha we have to work from
+		i told ya what i know lol i sound like a complete retard right now inah so what should we do then ?i wanna make this happen
+		but you need to give me more info that that
+		or at least explain it in a way i get it
+		alright i will try again
+		so u know what the byte key does right/ no sir great.... lol i know its like the key
+		tot he encryption i just dont know like where it comes into play how aboyt we ask him :)

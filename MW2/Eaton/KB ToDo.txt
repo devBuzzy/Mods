@@ -1,0 +1,18 @@
+*Remove "Press B to toggle sign" hint in the rank modifier.
+*In the Player Menu, remove Unlock All, Rank to 70, Set Legit Leaderboards.
+*Fix the Kick button, doesn't work.
+*In Set Permissin, remove Banned and Admin.
+*Replace VIP with Verified (Basically Verified = VIP now)
+>>You can't switch AC130 rounds.
+*Remove Nuke from the Killstreak Menu.
+*After you click Rank Up to Level 70, display this text: "To prestige, leave the lobby and go to Barracks. You will be invited right back!"
+>>Revamp Infection Menu.
+*In the Player Menu, add an option to kill the player. XD
+*For permissions, arrange them as follows:
+*Verified
+*VFI
+*CoHost
+*When someone is VFI, leaves & comes back, they don't get put into the correct menu.
+*Make it so the VFI users can leave the menu and move around.
+*inputs not erasing
+*daysplayed ?

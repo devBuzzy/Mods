@@ -1,0 +1,60 @@
+Awards: Assigning
+Awards: [Anth0ny228] won 8 awards
+Awards: [Anth0ny228][0] deaths 0
+Awards: [Anth0ny228][1] longestlife 97400
+Awards: [Anth0ny228][2] distancetraveled 2446
+Awards: Finished assigning
+Scoreboard: [Anth0ny228(0)][score]: 0
+Scoreboard: [Anth0ny228(0)][kills]: 0
+Scoreboard: [Anth0ny228(0)][assists]: 0
+Scoreboard: [Anth0ny228(0)][deaths]: 0
+Scoreboard: [Anth0ny228(0)][faction]: opforce_composite
+Scoreboard: scoreboardPlayerCount was 0
+Scoreboard: scoreboardPlayerCount now 1
+Scoreboard: Building scoreboard (allies)
+Scoreboard: [scoreboards][allies][0][Anth0ny228(0)]
+Scoreboard: Building scoreboard (axis)
+Scoreboard: [scoreboards][axis][0][Anth0ny228(0)]
+CL_Disconnect called for local client 0
+Saving lastPlayedTime of 1303355867.
+Beginning stats write into file for controller 0
+Calling XSessionEnd
+CL_Disconnect called for local client 1
+CL_Disconnect called for local client 2
+CL_Disconnect called for local client 3
+----- Server Shutdown -----
+==== ShutdownGame (1) ====
+0:Anth0ny228 EXE_DISCONNECTED
+Mounted 'save0:' drive (178 msec)
+Calling Party_StopParty() for partyId 0
+Disabling local mic (controller 0) for session gameSession
+Deleting session gameSession (handle F8000098)
+Voice: Unregistering slot 0 (ed532c15a62bb42a) from gameSession [F8000098]
+Clearing migration data
+Clearing migration data
+---------------------------
+----- R_Init -----
+Saved stats into file "mpdata_ed532c15a62bb42a" for controller 0. (178 msec to open, 244 msec total)
+Unloaded fastfile mp_afghan
+Loading fastfile dlc2_ui_mp
+Loading fastfile dlc1_ui_mp
+Loading fastfile ui_mp
+Loading dlc2_ui_mp.ff from disc, not from the update drive
+Loading dlc1_ui_mp.ff from disc, not from the update drive
+Waited 623 msec for asset 'ui_mp/menus.txt' of type 'menufile'.
+^3Ignoring asset 'preview_mp_crash' of type image, between fastfiles dlc1_ui_mp and ui_mp
+^3Ignoring asset 'preview_mp_crash' of type material, between fastfiles dlc1_ui_mp and ui_mp
+GamerProfile - Updating and possibly saving for controller #0.
+
+execing buttons_default.cfg from fastfile
+execing thumbstick_default.cfg from fastfile
+GamerProfile - Compressed 'Exe' keypairs for storage.  Used 108/1000 bytes.
+GamerProfile - Compressed 'Common' keypairs for storage.  Used 167/1000 bytes.
+Writing to profile for controller 0.
+execing default_480p.cfg from fastfile
+execing dvar_defaults.cfg from fastfile
+Async session 'gameSession' [f8000098] leave complete
+WRN[XGI]: Profile Cache: Setting 0x63E83FFF is not cacheable.
+WRN[XGI]: Profile Cache: Setting 0x63E83FFD is not cacheable.
+WRN[XGI]: Profile Cache: Setting 0x63E83FFF is not cacheable.
+WRN[XGI]: Profile Cache: Setting 0x63E83FFD is not cacheable.

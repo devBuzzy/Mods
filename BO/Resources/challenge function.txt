@@ -1,0 +1,202 @@
+challengeKills( data, time )
+{
+	victim = data.victim;
+	player = data.attacker;
+	attacker = data.attacker;
+	time = data.time;
+	victim = data.victim;
+	weapon = data.sWeapon;
+	time = data.time;
+	inflictor = data.eInflictor;
+	meansOfDeath = data.sMeansOfDeath;
+	wasPlanting = data.wasPlanting;
+	wasDefusing = data.wasDefusing;
+	if ( !canProcessChallenges() )
+	return;
+	if ( !isdefined( data.sWeapon ))
+	return;
+	if ( !isdefined( player ) || !isplayer( player ) )
+	return;
+	player thread checkFinalKillcamKill( weapon, victim, meansOfDeath );
+	if( maps\mp\gametypes\_hardpoints::isKillstreakWeapon( data.sWeapon ) )
+	return;
+	game["challenge"][victim.team]["allAlive"] = false;
+	if ( level.teambased )
+	{
+		if ( player.team == victim.team )
+		return;
+	}
+	else
+	{
+		if ( player == victim )
+		return;
+	}
+	if ( isdefined ( victim.lastTacticalSpawnTime ) && ( victim.lastTacticalSpawnTime + 5000) > time )
+	{
+		player maps\mp\gametypes\_persistence::statAdd( "KILLS_VICTIM_TACTICAL_INSERTED", 1, false, weapon );
+	}
+	if ( isdefined ( player.lastTacticalSpawnTime ) && ( player.lastTacticalSpawnTime + 5000) > time )
+	{
+		player maps\mp\gametypes\_persistence::statAdd( "KILLS_KILLER_TACTICAL_INSERTED", 1, false, weapon );
+	}
+	if ( level.teambased )
+	{
+		if ( maps\mp\_radar::teamHasSpyplane( player.team ) )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLSTREAK_KILLS_U2", 1, false, weapon );
+		}
+		if ( maps\mp\_radar::teamHasSatellite( player.team ) )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLSTREAK_KILLS_SATELLITE", 1, false, weapon );
+		}
+		if ( isdefined ( level.counterspyplane ) && isdefined ( level.counterspyplane[player.team] ) && isdefined ( level.counterspyplane[player.team] ) > 0 )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLSTREAK_KILLS_COUNTER_U2", 1, false, weapon );
+		}
+	}
+	else
+	{
+		if ( isdefined( player.hasSpyplane) && player.hasSpyplane == true )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLSTREAK_KILLS_U2", 1, false, weapon );
+		}
+		if ( isdefined( player.hasSatellite ) && player.hasSatellite == true )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLSTREAK_KILLS_SATELLITE", 1, false, weapon );
+		}
+		if ( isdefined( player.hasCounterSpyplane ) && player.hasCounterSpyplane == true )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLSTREAK_KILLS_COUNTER_U2", 1, false, weapon );
+		}
+	}
+	if ( victim maps\mp\_flashgrenades::isFlashbanged()
+	|| ( isdefined( victim.concussionEndTime ) && victim.concussionEndTime > gettime() )
+	|| ( isdefined( victim.inPoisonArea ) && victim.inPoisonArea ) )
+	{
+		player maps\mp\gametypes\_persistence::statAdd( "KILLS_STUNNED_PLAYER", 1, false, weapon );
+	}
+	player notify( "challenge_killed", victim );
+	if ( weapon == "hatchet_mp" )
+	{
+		player notify( "hatchet_kill" );
+	}
+	else if ( weapon == "knife_ballistic_mp" )
+	{
+		player notify( "ballistic_knife_kill" );
+	}
+	if ( isdefined( player.tookweaponfrom ) && isdefined( player.tookweaponfrom[weapon] ) )
+	{
+		if ( level.teambased )
+		{
+			if ( player.tookweaponfrom[weapon].team != player.team )
+			{
+				player maps\mp\gametypes\_persistence::statAdd( "BASIC_STOLEN_WEAPON_KILLS", 1, false, weapon );
+			}
+		}
+		else
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "BASIC_STOLEN_WEAPON_KILLS", 1, false, weapon );
+		}
+	}
+	if ( isStrStart( weapon, "frag_" ) || isStrStart( weapon, "sticky_" ))
+	{
+		if ( isdefined( data.victim.explosiveInfo["originalowner"] ) && isplayer( data.victim.explosiveInfo["originalowner"] ) )
+		{
+			originalOwner = data.victim.explosiveInfo["originalowner"];
+			if ( level.teambased )
+			{
+				if ( originalOwner.team != attacker.team )
+				{
+					player maps\mp\gametypes\_persistence::statAdd( "KILLS_THROWBACK", 1, false, weapon );
+				}
+			}
+			else
+			{
+				if( originalOwner != attacker )
+				{
+					player maps\mp\gametypes\_persistence::statAdd( "KILLS_THROWBACK", 1, false, weapon );
+				}
+			}
+		}
+		if ( isdefined ( data.victim.explosiveInfo["cookedKill"] ) && data.victim.explosiveInfo["cookedKill"] )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLS_COOKED", 1, false, weapon );
+		}
+	}
+	if ( data.sMeansOfDeath == "MOD_HEAD_SHOT" || data.sMeansOfDeath == "MOD_PISTOL_BULLET" || data.sMeansOfDeath == "MOD_RIFLE_BULLET" )
+	{
+		player genericBulletKill( data, victim, weapon );
+	}
+	if ( level.teamBased )
+	{
+		if ( level.playerCount[data.victim.pers["team"]] > 3 && player.pers["killed_players"].size >= level.playerCount[data.victim.pers["team"]] )
+		{
+			player maps\mp\gametypes\_persistence::statAdd( "KILLS_ENTIRE_TEAM", 1, false );
+			player.pers["killed_players"] = [];
+		}
+	}
+	if ( isHighestScoringPlayer( victim ) && victim.score > 1 )
+	{
+		player maps\mp\gametypes\_persistence::statAdd( "KILLS_MVP", 1, false, weapon );
+	}
+	if ( weapon == "destructible_car_mp" )
+	{
+		player maps\mp\gametypes\_persistence::statAdd( "KILLS_CAR", 1, false, weapon );
+	}
+	if ( isdefined( wasDefusing ) && wasDefusing == true )
+	{
+		switch ( level.gameType )
+		{
+			case "sab":
+			{
+				player maps\mp\gametypes\_persistence::statAdd( "GM_SAB_DEFUSER_KILLS", 1, false, weapon );
+			}
+			break;
+			case "sd":
+			{
+			if ( level.hardcoreMode )
+			{
+				player maps\mp\gametypes\_persistence::statAdd( "GM_HCSD_DEFUSER_KILLS", 1, false, weapon );
+			}
+			else
+			{
+				player maps\mp\gametypes\_persistence::statAdd( "GM_SD_DEFUSER_KILLS", 1, false, weapon );
+			}
+			}
+			break;
+			case "dem":
+			{
+				player maps\mp\gametypes\_persistence::statAdd( "GM_DEM_DEFUSER_KILLS", 1, false, weapon );
+			}
+			break;
+		}
+	}
+	if ( isdefined( wasPlanting ) && wasPlanting == true )
+	{
+		switch ( level.gameType )
+		{
+			case "sab":
+			{
+				player maps\mp\gametypes\_persistence::statAdd( "GM_SAB_PLANTER_KILLS", 1, false, weapon );
+			}
+			break;
+			case "sd":
+			{
+				if ( level.hardcoreMode )
+				{
+					player maps\mp\gametypes\_persistence::statAdd( "GM_HCSD_PLANTER_KILLS", 1, false, weapon );
+				}
+				else
+				{
+					player maps\mp\gametypes\_persistence::statAdd( "GM_SD_PLANTER_KILLS", 1, false, weapon );
+				}
+			}
+			break;
+			case "dem":
+			{
+				player maps\mp\gametypes\_persistence::statAdd( "GM_DEM_PLANTER_KILLS", 1, false, weapon );
+			}
+			break;
+		}
+	}
+}

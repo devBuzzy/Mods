@@ -1,0 +1,21 @@
+Re-write:
+- accuracy: add hits and misses
+- days played: 
+- challenges overlap on-screen (unlock once only! )
+
+Add:
+- button combo [X][Y][X][Y]
+- cardtitles for verification status
+
+- add ties
+- add headshots
+- add accolades
+
+Infections:
+- wallhack needs removing
+- get rid of green box infection
+- test stopping power infection
+- godmode endon exit menu
+
+
+
